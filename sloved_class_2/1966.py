@@ -1,19 +1,19 @@
 import sys
 from collections import deque
-T = int(sys.stdin.readline())
-for i in range(T):
+
+for i in range(int(sys.stdin.readline())):
     N, M = map(int, sys.stdin.readline().split())
     stack = deque(map(int, sys.stdin.readline().split()))
+    li_dq = deque(range(0, N))
+    time = 0
     
-    if N == 1:
-        print(1)
-    else:
-        time = 0
-        for j in range(len(stack)):
-            if stack[j] != M:
-                time += 1
-                stack.rotate(-1)
-            elif stack[j] == M:
+    while stack:
+        if stack[0] == max(stack):
+            time += 1
+            stack.popleft()
+            if li_dq.popleft() == M:
                 print(time)
-                
-    
+                break
+        else:
+            stack.rotate(-1)
+            li_dq.rotate(-1)
